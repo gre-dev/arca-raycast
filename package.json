@@ -19,9 +19,18 @@
   "commands": [
     {
       "name": "create-task",
-      "title": "Create task",
+      "title": "Create Task",
       "description": "Creates a task in a specific list",
-      "mode": "no-view"
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "apiKey",
+      "type": "password",
+      "title": "Arca API key",
+      "description": "Your Arca API key for authenticating requests.",
+      "required": true
     }
   ],
   "dependencies": {
