@@ -28,6 +28,12 @@
       "title": "My Tasks",
       "description": "View all tasks assigned to you across all workspaces",
       "mode": "view"
+    },
+    {
+      "name": "planned",
+      "title": "Planned Tasks",
+      "description": "View tasks with due or start dates, grouped by date",
+      "mode": "view"
     }
   ],
   "preferences": [
