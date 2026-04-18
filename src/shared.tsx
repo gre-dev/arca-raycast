@@ -65,8 +65,7 @@ const turndown = new TurndownService({ headingStyle: "atx", bulletListMarker: "-
 
 // Task list items: `- [ ] text` or `- [x] text`
 turndown.addRule("taskItem", {
-  filter: (node) =>
-    node.nodeName === "LI" && (node as Element).getAttribute("data-type") === "taskItem",
+  filter: (node) => node.nodeName === "LI" && (node as Element).getAttribute("data-type") === "taskItem",
   replacement: (_content, node) => {
     const checked = (node as Element).getAttribute("data-checked") === "true";
     // Strip nested list markers that turndown may have inserted, keep only text
@@ -95,8 +94,7 @@ turndown.addRule("highlight", {
 
 // Callout: <div data-callout data-callout-type="info|warning|success|error">
 turndown.addRule("callout", {
-  filter: (node) =>
-    node.nodeName === "DIV" && (node as Element).hasAttribute("data-callout"),
+  filter: (node) => node.nodeName === "DIV" && (node as Element).hasAttribute("data-callout"),
   replacement: (content, node) => {
     const typeMap: Record<string, string> = {
       info: "NOTE",
@@ -117,17 +115,13 @@ turndown.addRule("callout", {
 
 // Collapsible: <div data-type="collapsible">
 turndown.addRule("collapsible", {
-  filter: (node) =>
-    node.nodeName === "DIV" &&
-    (node as Element).getAttribute("data-type") === "collapsible",
+  filter: (node) => node.nodeName === "DIV" && (node as Element).getAttribute("data-type") === "collapsible",
   replacement: (content) => `<details>\n${content.trim()}\n</details>\n\n`,
 });
 
 // Link preview card: <a data-type="link-preview-card" data-url="..." data-title="...">
 turndown.addRule("linkPreviewCard", {
-  filter: (node) =>
-    node.nodeName === "A" &&
-    (node as Element).getAttribute("data-type") === "link-preview-card",
+  filter: (node) => node.nodeName === "A" && (node as Element).getAttribute("data-type") === "link-preview-card",
   replacement: (_, node) => {
     const el = node as Element;
     const url = el.getAttribute("data-url") ?? "";
