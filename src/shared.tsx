@@ -151,6 +151,21 @@ turndown.addRule("taskMention", {
   },
 });
 
+// Mermaid diagram: <div data-type="mermaid" data-code="...">
+turndown.addRule("mermaid", {
+  filter: (node) => node.nodeName === "DIV" && (node as Element).getAttribute("data-type") === "mermaid",
+  replacement: (_, node) => {
+    const encoded = (node as Element).getAttribute("data-code") ?? "";
+    let code = encoded;
+    try {
+      code = decodeURIComponent(encoded);
+    } catch {
+      // use raw value as-is
+    }
+    return `\`\`\`mermaid\n${code}\n\`\`\`\n\n`;
+  },
+});
+
 export function htmlToMarkdown(html: string): string {
   return turndown.turndown(html).trim();
 }
