@@ -151,6 +151,32 @@ turndown.addRule("taskMention", {
   },
 });
 
+// Arca resource embeds (ID-only)
+const WEB_APP_URL = "https://web.getarca.app";
+
+function arcaEmbedRule(
+  dataType: string,
+  idAttr: string,
+  label: string,
+  editorPath: string,
+) {
+  turndown.addRule(dataType, {
+    filter: (node) =>
+      node.nodeName === "DIV" &&
+      (node as Element).getAttribute("data-type") === dataType,
+    replacement: (_, node) => {
+      const id = (node as Element).getAttribute(idAttr) ?? "";
+      if (!id) return "";
+      const url = `${WEB_APP_URL}${editorPath}?id=${encodeURIComponent(id)}`;
+      return `[${label}](${url})\n\n`;
+    },
+  });
+}
+
+arcaEmbedRule("document-embed", "data-document-id", "Document", "/documents/editor");
+arcaEmbedRule("mindmap-embed", "data-mindmap-id", "Mindmap", "/mindmaps/editor");
+arcaEmbedRule("project-embed", "data-project-id", "Project", "/project-tracking/editor");
+
 // Mermaid diagram: <div data-type="mermaid" data-code="...">
 turndown.addRule("mermaid", {
   filter: (node) => node.nodeName === "DIV" && (node as Element).getAttribute("data-type") === "mermaid",
