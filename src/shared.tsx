@@ -154,16 +154,9 @@ turndown.addRule("taskMention", {
 // Arca resource embeds (ID-only)
 const WEB_APP_URL = "https://web.getarca.app";
 
-function arcaEmbedRule(
-  dataType: string,
-  idAttr: string,
-  label: string,
-  editorPath: string,
-) {
+function arcaEmbedRule(dataType: string, idAttr: string, label: string, editorPath: string) {
   turndown.addRule(dataType, {
-    filter: (node) =>
-      node.nodeName === "DIV" &&
-      (node as Element).getAttribute("data-type") === dataType,
+    filter: (node) => node.nodeName === "DIV" && (node as Element).getAttribute("data-type") === dataType,
     replacement: (_, node) => {
       const id = (node as Element).getAttribute(idAttr) ?? "";
       if (!id) return "";
